@@ -1,0 +1,32 @@
+# Git
+.git
+.github
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual Environment
+.venv/
+venv/
+
+# Cache
+.pytest_cache/
+.mypy_cache/
+
+# Notebook
+notebooks/
+.ipynb_checkpoints/
+
+# Tests
+tests/
+
+# Reports
+reports/
+
+# Environment
+.env
+
+# macOS
+.DS_Store

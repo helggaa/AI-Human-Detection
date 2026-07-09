@@ -1,0 +1,33 @@
+[tool.black]
+line-length = 79
+target-version = ["py311"]
+
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | __pycache__
+  | notebooks
+)/
+'''
+
+[tool.ruff]
+line-length = 79
+target-version = "py311"
+
+exclude = [
+    ".git",
+    ".venv",
+    "__pycache__",
+    "notebooks",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "W",
+    "I",
+]
+
+ignore = []
