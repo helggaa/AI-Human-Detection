@@ -130,7 +130,7 @@ def render_uploaded_image() -> Image.Image | None:
     st.image(
         image,
         caption="Uploaded Image",
-        use_container_width=True,
+        width="stretch",
     )
 
     if not contains_human(image_array):
