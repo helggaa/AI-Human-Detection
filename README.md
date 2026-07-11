@@ -1,7 +1,8 @@
 # AI Human Detection
 
+![CI](https://github.com/helggaa/ai-human-detection/actions/workflows/python-ci.yml/badge.svg?branch=main)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.21-orange)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Tests](https://img.shields.io/badge/Tests-37%20Passed-success)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
@@ -18,6 +19,15 @@ AI-generated portraits are becoming increasingly realistic, making it difficult 
 This project implements a complete computer vision pipeline for binary image classification using transfer learning with EfficientNetV2B0. The project covers every stage of the workflow, from dataset cleaning to model deployment, following software engineering best practices including modular architecture, automated testing, code formatting, linting, Docker support, and CI.
 
 ---
+
+## Live Demo
+
+🔗 https://ai-or-realhuman-detection.streamlit.app/
+
+## Demo
+
+![Demo](docs/images/demo.png)
+
 
 # Features
 
@@ -50,6 +60,12 @@ AI_Human_Detection/
 │
 ├── .github/
 │   └── workflows/
+│
+├── .runtime/
+│   └── python-version
+│
+├── docs/
+│   └── images/
 │
 ├── models/
 │   ├── best_model.keras
@@ -85,7 +101,8 @@ AI_Human_Detection/
 ├── predict.py
 ├── Dockerfile
 ├── requirements.txt
-└── README.md
+├── README.md
+└── runtime.txt
 ```
 
 ---
@@ -125,7 +142,7 @@ EfficientNetV2B0
 
 ## Framework
 
-TensorFlow 2.21
+TensorFlow 2.20
 
 ## Loss Function
 
@@ -169,12 +186,19 @@ Deployment
 # Model Performance
 
 | Metric | Score |
-|--------|-------|
-| Accuracy | **TODO** |
-| Precision | **TODO** |
-| Recall | **TODO** |
-| F1-Score | **TODO** |
+|--------|-------:|
+| Accuracy | **81.65%** |
+| Precision | **82.09%** |
+| Recall | **81.65%** |
+| F1-Score | **81.60%** |
 | ROC-AUC | **TODO** |
+
+Per-class performance:
+
+| Class | Precision | Recall | F1-Score | Support |
+|--------|-------:|-------:|-------:|-------:|
+| Authentic Human | 78.16% | 87.18% | 82.42% | 78 |
+| AI Generated Human | 85.92% | 76.25% | 80.79% | 80 |
 
 Generated reports include:
 
@@ -190,9 +214,9 @@ Generated reports include:
 Clone the repository.
 
 ```bash
-git clone https://github.com/helggaa/AI_Human_Detection.git
+git clone https://github.com/helggaa/ai-human-detection.git
 
-cd AI_Human_Detection
+cd ai-human-detection
 ```
 
 Create a virtual environment.
@@ -264,8 +288,10 @@ docker build -t ai-human-detection .
 Run the container.
 
 ```bash
-docker run ai-human-detection
+docker run -p 8501:8501 ai-human-detection
 ```
+
+Open http://localhost:8501
 
 ---
 
@@ -312,10 +338,6 @@ black .
 - Larger datasets
 
 ---
-
-# Demo
-
-![Demo](docs/images/demo.png)
 
 # License
 

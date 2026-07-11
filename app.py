@@ -7,12 +7,12 @@ Interactive web application for the AI Human Detection project.
 
 from __future__ import annotations
 
+import numpy as np
 import streamlit as st
 from PIL import Image
 
-from src.config import (
-    SUPPORTED_IMAGE_EXTENSIONS,
-)
+from src.config import SUPPORTED_IMAGE_EXTENSIONS
+from src.human_detector import contains_human
 from src.logger import logger
 from src.predictor import (
     ImagePredictor,
@@ -123,13 +123,20 @@ def render_uploaded_image() -> Image.Image | None:
     if uploaded is None:
         return None
 
-    image = Image.open(uploaded)
+    image = Image.open(uploaded).convert("RGB")
+
+    image_array = np.array(image)
 
     st.image(
         image,
         caption="Uploaded Image",
         use_container_width=True,
     )
+
+    if not contains_human(image_array):
+        st.warning("⚠️ There's no human in this picture.")
+
+        st.stop()
 
     return image
 
@@ -154,10 +161,13 @@ def render_prediction(
 
     with left_column:
 
-        if result.predicted_index == 0:
-            st.success(f"✅ {result.predicted_label}")
+        if result.predicted_label == "Authentic":
+
+            st.success("✅ Authentic Human")
+
         else:
-            st.warning(f"⚠️ {result.predicted_label}")
+
+            st.error("🤖 AI Generated Human")
 
     with right_column:
 
