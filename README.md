@@ -1,63 +1,65 @@
 # AI Human Detection
 
-![CI](https://github.com/<USERNAME>/<REPOSITORY>/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.11-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.21-orange)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Tests](https://img.shields.io/badge/Tests-37%20Passed-success)
+![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![Ruff](https://img.shields.io/badge/linter-Ruff-red)
 
-![Python](https://img.shields.io/badge/Python-3.12-blue)
-
-![TensorFlow](https://img.shields.io/badge/TensorFlow-2.18-orange)
-
-![License](https://img.shields.io/badge/license-MIT-green)
-
-A deep learning pipeline for binary image classification that distinguishes authentic human images from AI-generated human images using EfficientNetV2B0.
-
----
-
-## Project Overview
-
-This project implements an end-to-end computer vision pipeline including
-
-- Dataset cleaning
-- Dataset preprocessing
-- TensorFlow Dataset pipeline
-- Transfer learning
-- Fine-tuning
-- Model evaluation
-- Visualization
-- Model export
-
-The project is designed using a modular architecture where each stage is implemented in an independent Python module.
+> An end-to-end deep learning pipeline for distinguishing authentic human images from AI-generated human images using EfficientNetV2B0 and TensorFlow.
 
 ---
 
-## Features
+# Overview
 
-- Modular source code
+AI-generated portraits are becoming increasingly realistic, making it difficult to distinguish synthetic images from authentic photographs.
+
+This project implements a complete computer vision pipeline for binary image classification using transfer learning with EfficientNetV2B0. The project covers every stage of the workflow, from dataset cleaning to model deployment, following software engineering best practices including modular architecture, automated testing, code formatting, linting, Docker support, and CI.
+
+---
+
+# Features
+
+- End-to-end image classification pipeline
 - EfficientNetV2B0 transfer learning
+- Fine-tuning
 - TensorFlow Dataset pipeline
-- Stratified dataset split
-- Automatic logging
+- Automatic dataset cleaning
+- Dataset preprocessing
 - Training callbacks
-- Evaluation metrics
-- Confusion matrix
-- ROC Curve
-- Classification report
-- Training history export
+- Performance evaluation
+- Confusion matrix visualization
+- ROC curve visualization
+- Classification report generation
+- Command-line inference
+- Interactive Streamlit application
+- Docker support
+- Unit testing with Pytest
+- Ruff linting
+- Black code formatting
+- GitHub Actions CI
 
 ---
 
-## Project Structure
+# Project Architecture
 
 ```
-project/
+AI_Human_Detection/
 
-├── dataset/
-├── dataset_clean/
+│
+├── .github/
+│   └── workflows/
+│
 ├── models/
+│   ├── best_model.keras
+│   └── final_model.keras
+│
 ├── notebooks/
-│   ├── 01_Dataset_Exploration.ipynb
-│   ├── 02_Dataset_Cleaning.ipynb
+│   ├── 01_EDA.ipynb
+│   ├── 02_Data_Cleaning.ipynb
 │   ├── 03_Preprocessing.ipynb
-│   ├── 04_Model_Training.ipynb
+│   ├── 04_Training.ipynb
 │   └── 05_Evaluation.ipynb
 │
 ├── reports/
@@ -65,173 +67,256 @@ project/
 │   ├── logs/
 │   └── metrics/
 │
-└── src/
-    ├── config.py
-    ├── logger.py
-    ├── utils.py
-    ├── cleaning.py
-    ├── preprocessing.py
-    ├── model.py
-    ├── trainer.py
-    ├── evaluator.py
-    └── visualization.py
+├── src/
+│   ├── cleaning.py
+│   ├── preprocessing.py
+│   ├── model.py
+│   ├── trainer.py
+│   ├── predictor.py
+│   ├── evaluator.py
+│   ├── visualization.py
+│   ├── config.py
+│   ├── logger.py
+│   └── utils.py
+│
+├── tests/
+│
+├── app.py
+├── predict.py
+├── Dockerfile
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Dataset
+# Dataset
 
-The dataset contains two image categories:
+The dataset consists of two image classes.
 
-- Authentic Human Images
-- AI-Generated Human Images
+| Class | Images |
+|--------|-------:|
+| Authentic Human | **515** |
+| AI Generated Human | **537** |
+| Total | **1052** |
 
-All images are cleaned before training.
-
-Cleaning pipeline
+Before training, every image passes through an automated cleaning pipeline including:
 
 - Image validation
+- Corrupted image detection
 - RGB conversion
 - JPEG conversion
 - Sequential renaming
-- Metadata generation
+- Metadata logging
 - MD5 checksum generation
 
 ---
 
-## Model
+# Model
 
-Backbone
+## Backbone
 
-- EfficientNetV2B0
+EfficientNetV2B0
 
-Training
+## Training Strategy
 
 - Transfer Learning
-- Fine Tuning
+- Fine-Tuning
 
-Loss
+## Framework
 
-- SparseCategoricalCrossentropy
+TensorFlow 2.21
 
-Optimizer
+## Loss Function
 
-- Adam
+SparseCategoricalCrossentropy
 
-Metrics
+## Optimizer
 
-- Accuracy
+Adam
 
 ---
 
-## Pipeline
+# Pipeline
 
-Dataset
-
-↓
-
-Cleaning
-
-↓
-
+```
+Raw Dataset
+      │
+      ▼
+Dataset Cleaning
+      │
+      ▼
 Preprocessing
-
-↓
-
-Training
-
-↓
-
+      │
+      ▼
+Transfer Learning
+      │
+      ▼
+Fine-Tuning
+      │
+      ▼
 Evaluation
-
-↓
-
-Visualization
+      │
+      ▼
+Inference
+      │
+      ▼
+Deployment
+```
 
 ---
 
-## Evaluation
+# Model Performance
 
-Generated outputs
+| Metric | Score |
+|--------|-------|
+| Accuracy | **TODO** |
+| Precision | **TODO** |
+| Recall | **TODO** |
+| F1-Score | **TODO** |
+| ROC-AUC | **TODO** |
+
+Generated reports include:
 
 - Classification Report
 - Confusion Matrix
 - ROC Curve
-- Accuracy
-- Precision
-- Recall
-- F1-score
-- ROC-AUC
+- Training History
 
 ---
 
-## Installation
+# Installation
+
+Clone the repository.
 
 ```bash
-git clone https://github.com/username/AI-Human-Detection.git
+git clone https://github.com/helggaa/AI_Human_Detection.git
 
-cd AI-Human-Detection
+cd AI_Human_Detection
+```
 
+Create a virtual environment.
+
+Windows
+
+```bash
+python -m venv .venv
+
+.venv\Scripts\activate
+```
+
+Linux/macOS
+
+```bash
+python -m venv .venv
+
+source .venv/bin/activate
+```
+
+Install dependencies.
+
+```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## Usage
+# Command-Line Inference
 
-Cleaning
+Predict a single image.
 
 ```bash
-python src/cleaning.py
+python predict.py path/to/image.jpg
 ```
 
-Preprocessing
+Example output
 
-```bash
-python src/preprocessing.py
 ```
+Prediction
 
-Training
+Authentic Human
 
-```bash
-python src/trainer.py
-```
+Confidence
 
-Evaluation
-
-```bash
-python src/evaluator.py
-```
-
-Visualization
-
-```bash
-python src/visualization.py
+98.76%
 ```
 
 ---
 
-## Requirements
+# Streamlit Demo
 
-See
+Run the interactive web application.
 
-```
-requirements.txt
+```bash
+streamlit run app.py
 ```
 
 ---
 
-## Future Improvements
+# Docker
+
+Build the image.
+
+```bash
+docker build -t ai-human-detection .
+```
+
+Run the container.
+
+```bash
+docker run ai-human-detection
+```
+
+---
+
+# Testing
+
+Run all unit tests.
+
+```bash
+pytest
+```
+
+Current status
+
+```
+37 passed
+```
+
+---
+
+# Code Quality
+
+Lint
+
+```bash
+ruff check .
+```
+
+Formatter
+
+```bash
+black .
+```
+
+---
+
+# Future Work
 
 - ONNX export
-- TensorBoard integration
-- Grad-CAM visualization
+- TensorRT optimization
+- Explainable AI (Grad-CAM)
+- Model quantization
+- REST API with FastAPI
 - Multi-class classification
-- Hyperparameter tuning
-- Docker support
+- Larger datasets
 
 ---
 
-## License
+# Demo
 
-MIT License
+![Demo](docs/images/demo.png)
+
+# License
+
+This project is licensed under the MIT License.
