@@ -13,4 +13,4 @@ streamlit~=1.48
 tqdm~=4.67
 
 ultralytics~=8.4.92
-opencv-python~=5.0.0.93
+opencv-python-headless~=4.12
