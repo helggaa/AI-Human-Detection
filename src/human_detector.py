@@ -3,7 +3,10 @@ from __future__ import annotations
 from functools import lru_cache
 
 import numpy as np
-from ultralytics import YOLO
+
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from ultralytics import YOLO
 
 
 @lru_cache(maxsize=1)
@@ -11,6 +14,8 @@ def load_detector() -> YOLO:
     """
     Load the YOLO model once.
     """
+
+    from ultralytics import YOLO
 
     return YOLO("yolov8n.pt")
 
