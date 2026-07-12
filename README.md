@@ -127,6 +127,18 @@ Before training, every image passes through an automated cleaning pipeline inclu
 - Metadata logging
 - MD5 checksum generation
 
+## AI-Generated Image Collection
+
+The AI-generated images in this dataset were created using ChatGPT. We also evaluated outputs from several other AI image-generation models, but based on our qualitative comparison, ChatGPT produced the most realistic, diverse, and suitable images for the objectives of this project.
+
+The generated dataset was intentionally not limited to a single type of image, such as selfies, close-up portraits, or professional photography. It includes individual and group photographs, candid moments, action shots, indoor and outdoor scenes, different activities, lighting conditions, camera angles, compositions, aspect ratios, levels of image quality, and more.
+
+This diversity was introduced to reduce reliance on narrow visual patterns and to better represent the range of human-centered images that may appear in real-world use.
+
+Examples of some of the AI-generated images used in this project are shown below.
+
+![Demo](docs/images/ai-generated-example.png)
+
 ---
 
 # Model
@@ -327,7 +339,6 @@ black .
 
 ---
 
-
 # Limitations
 
 The model is trained exclusively on images containing humans, with the objective of distinguishing authentic human photographs from AI-generated human images.
@@ -338,7 +349,6 @@ It is not currently trained to recognize non-human or out-of-domain inputs. As a
 * AI Generated Human
 
 Predictions on such inputs should therefore not be considered reliable. The current model assumes that every input image contains a human subject and falls within the scope of the training dataset.
-
 
 ---
 
@@ -354,7 +364,6 @@ Predictions on such inputs should therefore not be considered reliable. The curr
 * Model quantization
 * REST API with FastAPI
 * Multi-class classification
-
 
 ---
 
