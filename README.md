@@ -327,15 +327,34 @@ black .
 
 ---
 
+
+# Limitations
+
+The model is trained exclusively on images containing humans, with the objective of distinguishing authentic human photographs from AI-generated human images.
+
+It is not currently trained to recognize non-human or out-of-domain inputs. As a result, unrelated images—such as animals, objects, landscapes, illustrations, or other content without humans—will still be forced into one of the two available classes:
+
+* Authentic Human
+* AI Generated Human
+
+Predictions on such inputs should therefore not be considered reliable. The current model assumes that every input image contains a human subject and falls within the scope of the training dataset.
+
+
+---
+
 # Future Work
 
-- ONNX export
-- TensorRT optimization
-- Explainable AI (Grad-CAM)
-- Model quantization
-- REST API with FastAPI
-- Multi-class classification
-- Larger datasets
+* Add non-human and out-of-domain training samples
+* Implement out-of-distribution input detection
+* Add a distinct `Unsupported / Non-Human` rejection class
+* Expand the dataset with more diverse human images
+* ONNX export
+* TensorRT optimization
+* Explainable AI with Grad-CAM
+* Model quantization
+* REST API with FastAPI
+* Multi-class classification
+
 
 ---
 
