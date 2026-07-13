@@ -117,9 +117,9 @@ The dataset consists of two image classes.
 
 | Class | Images |
 |--------|-------:|
-| Authentic Human | **515** |
-| AI Generated Human | **537** |
-| Total | **1052** |
+| Authentic Human | **740** |
+| AI Generated Human | **786** |
+| Total | **1526** |
 
 Before training, every image passes through an automated cleaning pipeline including:
 
