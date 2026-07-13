@@ -13,3 +13,5 @@ streamlit~=1.48
 tqdm~=4.67
 
 opencv-python-headless~=4.12
+
+supabase

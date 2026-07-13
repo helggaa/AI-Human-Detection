@@ -11,14 +11,16 @@ import numpy as np
 def load_detector() -> cv2.CascadeClassifier:
 
     detector_path = (
-        Path(cv2.__file__).parent
-        / "data"
-        / "haarcascade_frontalface_default.xml"
+        Path(cv2.data.haarcascades) / "haarcascade_frontalface_default.xml"
     )
 
-    detector = cv2.CascadeClassifier(
-        str(detector_path)
-    )
+    if not detector_path.exists():
+        raise FileNotFoundError(f"Detector file not found: {detector_path}")
+
+    detector = cv2.CascadeClassifier(str(detector_path))
+
+    if detector.empty():
+        raise RuntimeError("Failed to load Haar cascade detector.")
 
     return detector
 

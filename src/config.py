@@ -126,6 +126,28 @@ for directory in (
 ):
     directory.mkdir(parents=True, exist_ok=True)
 
+# =============================================================================
+# FEEDBACK CONFIGURATION
+# =============================================================================
+
+FEEDBACK_DIR: Path = REPORT_DIR / "feedback"
+
+FEEDBACK_FILENAME: str = "feedback.csv"
+
+FEEDBACK_PATH: Path = FEEDBACK_DIR / FEEDBACK_FILENAME
+
+FEEDBACK_IMAGE_EXTENSION: str = ".jpg"
+
+FEEDBACK_COLUMNS: tuple[str, ...] = (
+    "timestamp",
+    "feedback",
+    "predicted_label",
+    "confidence",
+    "filename",
+    "drive_file_id",
+    "drive_url",
+)
+
 __all__ = [
     "PROJECT_ROOT",
     "RAW_DATASET_DIR",
