@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Tests](https://img.shields.io/badge/Tests-37%20Passed-success)
+![Tests](https://img.shields.io/badge/Tests-48%20Passed-success)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Ruff](https://img.shields.io/badge/linter-Ruff-red)
 
@@ -49,6 +49,8 @@ This project implements a complete computer vision pipeline for binary image cla
 - Ruff linting
 - Black code formatting
 - GitHub Actions CI
+- User feedback collection
+- Supabase feedback storage
 
 ---
 
@@ -91,6 +93,8 @@ AI_Human_Detection/
 │   ├── predictor.py
 │   ├── evaluator.py
 │   ├── visualization.py
+│   ├── feedback.py
+│   ├── human_detector.py
 │   ├── config.py
 │   ├── logger.py
 │   └── utils.py
@@ -203,7 +207,6 @@ Deployment
 | Precision | **82.09%** |
 | Recall | **81.65%** |
 | F1-Score | **81.60%** |
-| ROC-AUC | **TODO** |
 
 Per-class performance:
 
@@ -318,7 +321,7 @@ pytest
 Current status
 
 ```
-37 passed
+48 passed
 ```
 
 ---
