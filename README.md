@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Tests](https://img.shields.io/badge/Tests-66%20Passed-success)
+![Tests](https://img.shields.io/badge/Tests-72%20Passed-success)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Ruff](https://img.shields.io/badge/linter-Ruff-red)
 
@@ -35,6 +35,8 @@ This project implements a complete computer vision pipeline for binary image cla
 - EfficientNetV2B0 transfer learning
 - Fine-tuning
 - Data augmentation pipeline (rotation, zoom, flip, contrast)
+- Explainable AI with Grad-CAM visual attention mapping
+- TFLite model export for optimized CPU/edge inference
 - TensorFlow Dataset pipeline
 - Automatic dataset cleaning
 - Dataset preprocessing
@@ -46,7 +48,7 @@ This project implements a complete computer vision pipeline for binary image cla
 - Classification report generation
 - Command-line inference
 - Interactive Streamlit application
-- Docker support
+- Docker support with non-root security hardening
 - Unit testing with Pytest
 - Ruff linting
 - Black code formatting
@@ -93,6 +95,8 @@ AI_Human_Detection/
 │   ├── model.py
 │   ├── trainer.py
 │   ├── predictor.py
+│   ├── gradcam.py
+│   ├── exporter.py
 │   ├── evaluator.py
 │   ├── visualization.py
 │   ├── feedback.py
@@ -327,7 +331,7 @@ pytest
 Current status
 
 ```
-66 passed
+72 passed
 ```
 
 ---
@@ -367,10 +371,8 @@ Predictions on such inputs should therefore not be considered reliable. The curr
 * Implement out-of-distribution input detection
 * Add a distinct `Unsupported / Non-Human` rejection class
 * Expand the dataset with more diverse human images
-* ONNX export
 * TensorRT optimization
-* Explainable AI with Grad-CAM
-* Model quantization
+* Model quantization with INT8 calibration
 * REST API with FastAPI
 * Multi-class classification
 

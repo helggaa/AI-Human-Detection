@@ -1,4 +1,4 @@
-.PHONY: help install install-dev test lint format run train evaluate clean
+.PHONY: help install install-dev test lint format run train evaluate export clean
 
 help:
 	@echo "Available commands:"
@@ -10,6 +10,7 @@ help:
 	@echo "  make run          Launch Streamlit web application"
 	@echo "  make train        Execute model training pipeline"
 	@echo "  make evaluate     Execute model evaluation pipeline"
+	@echo "  make export       Export trained model to TFLite format"
 	@echo "  make clean        Remove build, cache, and temporary files"
 
 install:
@@ -35,6 +36,9 @@ train:
 
 evaluate:
 	python -m src.evaluator
+
+export:
+	python -m src.exporter
 
 clean:
 	find . -type d -name "__pycache__" -exec rm -rf {} +

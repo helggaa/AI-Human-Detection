@@ -19,6 +19,7 @@ from src.feedback import (
     FeedbackError,
     FeedbackManager,
 )
+from src.gradcam import generate_gradcam
 from src.human_detector import contains_human
 from src.logger import logger
 from src.predictor import (
@@ -300,6 +301,50 @@ def render_probability_section(
         )
 
 
+def render_gradcam_section(
+    image: Image.Image,
+    predictor: ImagePredictor,
+    result: PredictionResult,
+) -> None:
+    """
+    Render Explainable AI (Grad-CAM) visualization section.
+    """
+    with st.expander("🔍 Explainable AI — Visual Attention (Grad-CAM)"):
+        st.caption(
+            "Grad-CAM highlights the visual regions the model focused on "
+            "most strongly when making this prediction."
+        )
+
+        try:
+            preprocessed = predictor._preprocess(image)
+            gradcam_result = generate_gradcam(
+                model=predictor.model,
+                original_image=image,
+                preprocessed_image=preprocessed,
+                class_labels=predictor.class_labels,
+                class_index=result.predicted_index,
+            )
+
+            left_col, right_col = st.columns(2)
+            with left_col:
+                st.image(
+                    image,
+                    caption="Original Image",
+                    use_container_width=True,
+                )
+            with right_col:
+                st.image(
+                    gradcam_result.overlay_image,
+                    caption=f"Attention Map ({result.predicted_label})",
+                    use_container_width=True,
+                )
+        except Exception:
+            logger.exception("Failed to generate Grad-CAM visualization.")
+            st.info(
+                "Visual explanation is currently unavailable for this input."
+            )
+
+
 def render_feedback_section(
     image: Image.Image,
     result: PredictionResult,
@@ -453,6 +498,12 @@ def main() -> None:
 
         render_probability_section(
             result,
+        )
+
+        render_gradcam_section(
+            image=image,
+            predictor=predictor,
+            result=result,
         )
 
         render_feedback_section(
