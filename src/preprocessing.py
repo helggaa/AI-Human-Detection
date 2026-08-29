@@ -30,6 +30,9 @@ from keras.applications.efficientnet_v2 import preprocess_input
 from sklearn.model_selection import train_test_split
 
 from src.config import (
+    AUGMENTATION_CONTRAST_FACTOR,
+    AUGMENTATION_ROTATION_FACTOR,
+    AUGMENTATION_ZOOM_FACTOR,
     BATCH_SIZE,
     CACHE_DATASET,
     CLASS_DIRECTORIES,
@@ -37,6 +40,7 @@ from src.config import (
     CLEAN_DATASET_DIR,
     DETERMINISTIC_DATASET,
     DROP_REMAINDER,
+    ENABLE_DATA_AUGMENTATION,
     IMAGE_SIZE,
     PREFETCH_DATASET,
     RANDOM_SEED,
@@ -51,7 +55,6 @@ from src.utils import list_image_files
 
 AUTOTUNE = tf.data.AUTOTUNE
 INTERPOLATION = tf.image.ResizeMethod.BILINEAR
-tf.keras.utils.set_random_seed(RANDOM_SEED)
 
 # =============================================================================
 # TYPE DEFINITIONS
@@ -134,7 +137,7 @@ class DatasetPreprocessor:
         self,
         dataset_directory: Path = CLEAN_DATASET_DIR,
     ) -> None:
-
+        tf.keras.utils.set_random_seed(RANDOM_SEED)
         self.dataset_directory = dataset_directory
 
         self.dataframe = pd.DataFrame()
@@ -371,6 +374,27 @@ class DatasetPreprocessor:
 
         return image, label
 
+    @staticmethod
+    def build_augmentation_layer() -> tf.keras.Sequential:
+        """
+        Build data augmentation pipeline for training.
+        """
+        from keras import layers
+
+        return tf.keras.Sequential(
+            [
+                layers.RandomFlip("horizontal", seed=RANDOM_SEED),
+                layers.RandomRotation(
+                    AUGMENTATION_ROTATION_FACTOR, seed=RANDOM_SEED
+                ),
+                layers.RandomZoom(AUGMENTATION_ZOOM_FACTOR, seed=RANDOM_SEED),
+                layers.RandomContrast(
+                    AUGMENTATION_CONTRAST_FACTOR, seed=RANDOM_SEED
+                ),
+            ],
+            name="data_augmentation",
+        )
+
     def create_dataset(
         self,
         dataframe: pd.DataFrame,
@@ -394,8 +418,13 @@ class DatasetPreprocessor:
             deterministic=DETERMINISTIC_DATASET,
         )
 
-        if training and SHUFFLE_DATASET:
+        if CACHE_DATASET:
+            if cache_filename is None:
+                dataset = dataset.cache()
+            else:
+                dataset = dataset.cache(cache_filename)
 
+        if training and SHUFFLE_DATASET:
             dataset = dataset.shuffle(
                 SHUFFLE_BUFFER_SIZE,
                 seed=RANDOM_SEED,
@@ -406,17 +435,18 @@ class DatasetPreprocessor:
             drop_remainder=DROP_REMAINDER,
         )
 
-        if CACHE_DATASET:
-
-            if cache_filename is None:
-                dataset = dataset.cache()
-
-            else:
-
-                dataset = dataset.cache(cache_filename)
+        if training and ENABLE_DATA_AUGMENTATION:
+            augmentation = self.build_augmentation_layer()
+            dataset = dataset.map(
+                lambda images, labels: (
+                    augmentation(images, training=True),
+                    labels,
+                ),
+                num_parallel_calls=AUTOTUNE,
+                deterministic=DETERMINISTIC_DATASET,
+            )
 
         if PREFETCH_DATASET:
-
             dataset = dataset.prefetch(
                 AUTOTUNE,
             )

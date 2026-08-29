@@ -47,6 +47,10 @@ class ModelConfiguration:
 
     model_name: str = DEFAULT_MODEL
 
+    dense_units: int | None = None
+
+    dropout_rate: float = CLASSIFIER_DROPOUT_RATE
+
 
 @dataclass(slots=True)
 class ModelArtifacts:
@@ -140,8 +144,21 @@ class ModelBuilder:
             name="global_average_pooling",
         )(inputs)
 
+        if (
+            self.configuration.dense_units is not None
+            and self.configuration.dense_units > 0
+        ):
+            x = layers.BatchNormalization(
+                name="head_batch_norm",
+            )(x)
+            x = layers.Dense(
+                self.configuration.dense_units,
+                activation="relu",
+                name="head_dense",
+            )(x)
+
         x = layers.Dropout(
-            rate=CLASSIFIER_DROPOUT_RATE,
+            rate=self.configuration.dropout_rate,
             name="dropout",
         )(x)
 

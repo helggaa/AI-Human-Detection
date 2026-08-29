@@ -113,18 +113,35 @@ CONFUSION_MATRIX_FIGURE_SIZE = (6, 6)
 ROC_FIGURE_SIZE = (6, 6)
 
 CLEANING_REPORT_FILENAME = "cleaning_report.csv"
-MODEL_VERSION = "1.0.0"
+MODEL_VERSION = "1.1.0"
 
-for directory in (
-    CLEAN_DATASET_DIR,
-    MODEL_DIR,
-    REPORT_DIR,
-    FIGURE_DIR,
-    LOG_DIR,
-    METRIC_DIR,
-    TABLE_DIR,
-):
-    directory.mkdir(parents=True, exist_ok=True)
+# =============================================================================
+# DATA AUGMENTATION CONFIGURATION
+# =============================================================================
+
+ENABLE_DATA_AUGMENTATION = True
+AUGMENTATION_ROTATION_FACTOR = 0.08
+AUGMENTATION_ZOOM_FACTOR = 0.10
+AUGMENTATION_CONTRAST_FACTOR = 0.10
+
+
+def ensure_project_directories() -> None:
+    """
+    Ensure all required project directories exist.
+    """
+    for directory in (
+        CLEAN_DATASET_DIR,
+        MODEL_DIR,
+        REPORT_DIR,
+        FIGURE_DIR,
+        LOG_DIR,
+        METRIC_DIR,
+        TABLE_DIR,
+    ):
+        directory.mkdir(parents=True, exist_ok=True)
+
+
+ensure_project_directories()
 
 # =============================================================================
 # FEEDBACK CONFIGURATION
@@ -201,4 +218,9 @@ __all__ = [
     "CONFUSION_MATRIX_FIGURE_SIZE",
     "ROC_FIGURE_SIZE",
     "MODEL_VERSION",
+    "ENABLE_DATA_AUGMENTATION",
+    "AUGMENTATION_ROTATION_FACTOR",
+    "AUGMENTATION_ZOOM_FACTOR",
+    "AUGMENTATION_CONTRAST_FACTOR",
+    "ensure_project_directories",
 ]

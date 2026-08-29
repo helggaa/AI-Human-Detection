@@ -14,4 +14,4 @@ tqdm~=4.67
 
 opencv-python-headless~=4.12
 
-supabase
+supabase~=2.31.0

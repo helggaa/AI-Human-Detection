@@ -22,11 +22,18 @@ notebooks/
 # Tests
 tests/
 
-# Reports
+# Reports & Data
 reports/
+dataset/
+dataset_clean/
+dataset_split/
 
-# Environment
+# Environment & Secrets
 .env
+.streamlit/secrets.toml
+
+# Logs
+*.log
 
 # macOS
 .DS_Store

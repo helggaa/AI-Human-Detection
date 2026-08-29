@@ -30,10 +30,14 @@ class FeedbackConfiguration:
 
     Parameters
     ----------
-    positive_folder_id: str
-    negative_folder_id: str
+    bucket_name: str
+        Supabase storage bucket name.
+    supabase_url: str
+        Supabase project URL.
+    supabase_key: str
+        Supabase API key.
     metadata_path: Path
-    service_account_info: Mapping[str, Any]
+        Path to local CSV metadata storage.
     """
 
     bucket_name: str
@@ -74,9 +78,9 @@ class FeedbackRecord:
     filename : str
         Generated image filename.
     drive_file_id : str
-        Uploaded Google Drive file ID.
+        Stored file path in Supabase storage.
     drive_url : str
-        Public or private Google Drive URL.
+        Stored file URL / reference in Supabase storage.
     """
 
     timestamp: str
@@ -96,9 +100,9 @@ class UploadResult:
     Parameters
     ----------
     file_id : str
-        Google Drive file ID.
+        Supabase storage file path.
     file_url : str
-        Google Drive URL.
+        Supabase storage file reference URL.
     filename : str
         Generated filename.
     """
@@ -125,7 +129,7 @@ class FeedbackManager:
             self._storage_client = self._build_storage_client()
 
         except Exception as error:
-            logger.exception("Failed to initialize Google Drive client.")
+            logger.exception("Failed to initialize Supabase storage client.")
 
             raise FeedbackError(
                 "Failed to initialize feedback system."
@@ -292,7 +296,7 @@ class FeedbackManager:
         feedback: Literal["positive", "negative"],
     ) -> UploadResult:
         """
-        Upload an image to Google Drive.
+        Upload an image to Supabase Storage.
 
         Parameters
         ----------
@@ -412,7 +416,7 @@ class FeedbackManager:
             record=record,
         )
         # TODO:
-        # Remove uploaded file from Google Drive
+        # Remove uploaded file from Supabase Storage
         # if metadata persistence fails.
 
         logger.info(
@@ -421,23 +425,6 @@ class FeedbackManager:
         )
 
         return record
-
-
-def _build_storage_client(
-    self,
-) -> Client:
-    """
-    Build a Supabase client.
-
-    Returns
-    -------
-    Client
-    """
-
-    return create_client(
-        self.configuration.supabase_url,
-        self.configuration.supabase_key,
-    )
 
 
 __all__ = [

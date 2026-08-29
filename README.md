@@ -4,7 +4,7 @@
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.20-orange)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![Tests](https://img.shields.io/badge/Tests-48%20Passed-success)
+![Tests](https://img.shields.io/badge/Tests-66%20Passed-success)
 ![Black](https://img.shields.io/badge/code%20style-black-000000.svg)
 ![Ruff](https://img.shields.io/badge/linter-Ruff-red)
 
@@ -34,9 +34,11 @@ This project implements a complete computer vision pipeline for binary image cla
 - End-to-end image classification pipeline
 - EfficientNetV2B0 transfer learning
 - Fine-tuning
+- Data augmentation pipeline (rotation, zoom, flip, contrast)
 - TensorFlow Dataset pipeline
 - Automatic dataset cleaning
 - Dataset preprocessing
+- Multi-scale human detection with Haar Cascades
 - Training callbacks
 - Performance evaluation
 - Confusion matrix visualization
@@ -104,7 +106,11 @@ AI_Human_Detection/
 ├── app.py
 ├── predict.py
 ├── Dockerfile
+├── Makefile
+├── pyproject.toml
 ├── requirements.txt
+├── requirements-dev.txt
+├── requirements-ci.txt
 ├── README.md
 └── runtime.txt
 ```
@@ -321,7 +327,7 @@ pytest
 Current status
 
 ```
-48 passed
+66 passed
 ```
 
 ---
