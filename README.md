@@ -67,15 +67,13 @@ AI_Human_Detection/
 ├── .github/
 │   └── workflows/
 │
-├── .runtime/
-│   └── python-version
-│
 ├── docs/
 │   └── images/
 │
 ├── models/
 │   ├── best_model.keras
-│   └── final_model.keras
+│   ├── final_model.keras
+│   └── model.tflite
 │
 ├── notebooks/
 │   ├── 01_EDA.ipynb

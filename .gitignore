@@ -48,4 +48,6 @@ dataset_split/
 
 .streamlit/secrets.toml
 
+# Reports & Feedback
 reports/feedback/
+reports/logs/
